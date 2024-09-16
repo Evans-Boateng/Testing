@@ -21,7 +21,7 @@ export default function Note(props){
   const day = createdDate.getDate();
 
   return (
-    <div className="bg-white p-4 rounded-[10px] shadow-md relative">
+    <div className="bg-white p-4 rounded-[10px] shadow-md relative h-[200px]">
       <div className="flex items-center justify-between mb-4">
         <div className={`${changeBackground()} text-sm p-[6px] rounded-[20px]`}>{props.category}</div>
         <div className="flex pr-[10px] justify-between items-center gap-5">
