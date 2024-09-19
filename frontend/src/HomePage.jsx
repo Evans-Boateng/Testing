@@ -1,12 +1,15 @@
 import { NavLink, Outlet } from "react-router-dom"
 import Note from "./note"
 import Header from "./Header"
+import { Toaster, toast } from 'sonner'
+
 
 export default function HomePage() {
   return (
     <>
       <Header />
       <div className="w-[100%] h-[100%] flex justify-center">
+        <Toaster />
         <div className=" w-[88%] mt-5 mb-5">
         <div className="mb-3"><h1 className="font-medium text-lg">Your notes</h1></div>
         <div className="">
