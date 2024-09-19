@@ -83,9 +83,34 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-CORS_ORIGIN_WHITELIST = [
-     'http://localhost:5173',  # The default port for create-react-app
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
 ]
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',  # Important for preflight requests
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser', 
+
+        'rest_framework.parsers.MultiPartParser',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+
+    ],
+    'DEFAULT_VERSIONING_CLASS': None,
+    'ALLOW_ANY': True,
+}
 
 
 # Password validation

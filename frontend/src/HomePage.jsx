@@ -9,7 +9,7 @@ export default function HomePage() {
     <>
       <Header />
       <div className="w-[100%] h-[100%] flex justify-center">
-        <Toaster />
+        <Toaster richColors/>
         <div className=" w-[88%] mt-5 mb-5">
         <div className="mb-3"><h1 className="font-medium text-lg">Your notes</h1></div>
         <div className="">

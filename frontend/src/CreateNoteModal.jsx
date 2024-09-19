@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 export default function NoteModal({open, onClose, children}){
   const [category, setCategory] = useState('')
   const [title, setTitle] = useState('')
@@ -13,6 +14,7 @@ export default function NoteModal({open, onClose, children}){
       setCategory('')
       setContent('')
       setTitle('')
+      toast.success("Note created successfully!")
     }catch(error){
       console.error('error in sending request', error.response?.data || error.message)
     }

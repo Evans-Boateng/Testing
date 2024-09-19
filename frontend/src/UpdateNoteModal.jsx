@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
+import { Toaster, toast } from 'sonner'
 
 
 export default function UpdateNote({open,onClose,noteId}) {
@@ -26,10 +27,11 @@ export default function UpdateNote({open,onClose,noteId}) {
     const { name, value } = event.target;
     setNoteData({ ...noteData, [name]: value });
   };
+  console.log(noteData);
   const handleSubmit = async () => {
     try{
-      await axios.put(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`,{noteData})
-      console.log("Note updated successfully")
+      await axios.patch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`, noteData)
+      toast.success("Note updated successfully!")
     }
     catch(error){
       console.error("Error in updating note", error)

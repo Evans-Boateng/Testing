@@ -22,7 +22,8 @@ export default function All() {
         <>
             {
                 notes.map((note, index) =>{
-                    return <Note title={note.title} content={note.content} category={note.category} created={note.created} key={index}/>
+                    return <Note title={note.title} content={note.content} category={note.category} created={note.created} key={index}
+                        id={note.id}/>
                 })
             }
         </>
