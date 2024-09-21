@@ -14,6 +14,7 @@ export default function NoteModal({open, onClose, children}){
       setCategory('')
       setContent('')
       setTitle('')
+      onClose()
       toast.success("Note created successfully!")
     }catch(error){
       console.error('error in sending request', error.response?.data || error.message)
@@ -35,8 +36,8 @@ export default function NoteModal({open, onClose, children}){
           <textarea value={content} onChange={(e) =>setContent(e.target.value)} rows="4" className="w-full bg-[#f5f5f5] rounded focus:outline-none px-1 py-[4px] font-medium text-sm mb-4" />
 
           <div className="mb-[100px]">
-            <label className="block">
-              Category:
+            <label className="block text-[12px]">
+              CATEGORY
             </label>
             <select value={category}
               onChange={(e) =>setCategory(e.target.value)}
@@ -49,7 +50,7 @@ export default function NoteModal({open, onClose, children}){
           </div>
 
           <div className="flex justify-center">
-            <button onClick={handleSubmit} className="w-full bg-blue-500 text-[13px] font-medium text-white py-2 rounded shadow-xl">ADD</button>
+            <button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-600 hover:transition-all duration-200 text-[13px] font-medium text-white py-2 rounded shadow-xl">ADD</button>
           </div>
         </div>
       </div>

@@ -27,11 +27,12 @@ export default function UpdateNote({open,onClose,noteId}) {
     const { name, value } = event.target;
     setNoteData({ ...noteData, [name]: value });
   };
-  console.log(noteData);
+  
   const handleSubmit = async () => {
     try{
       await axios.patch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`, noteData)
       toast.success("Note updated successfully!")
+      onClose();
     }
     catch(error){
       console.error("Error in updating note", error)
@@ -55,7 +56,7 @@ export default function UpdateNote({open,onClose,noteId}) {
 
 
           <div className="flex justify-center">
-            <button onClick={handleSubmit} className="w-full bg-blue-500 text-[13px] font-medium text-white py-2 rounded shadow-xl">UPDATE</button>
+            <button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-600 hover:transition-all duration-200 text-[13px] font-medium text-white py-2 rounded shadow-xl">UPDATE</button>
           </div>
         </div>
       </div>
