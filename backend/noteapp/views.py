@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from rest_framework import generics, mixins
-from .models import  Note
+from .models import  Note, User
 from rest_framework.response import Response
-from .serializers import  NoteSerializer
+from .serializers import  NoteSerializer, CreateUserSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # Create your views here.
+
+class CreateUserView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = CreateUserSerializer
+    permission_classes = [AllowAny]
+
 
 class NoteCreateView(generics.CreateAPIView): 
     queryset = Note.objects.all()
