@@ -37,6 +37,7 @@ class Note(models.Model):
     title = models.CharField(max_length=100, unique=True)
     content = models.TextField()
     category = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 

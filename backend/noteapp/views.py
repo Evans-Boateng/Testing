@@ -27,11 +27,10 @@ class LoginView(TokenObtainPairView):
             value=refresh_token,
             httponly=True,
             secure=True,  # Use secure=True in production
-            samesite='Strict'  # Adjust SameSite attribute as needed
+            samesite='Strict', 
+            max_age=3600,
         )
         
-        # Remove the refresh token from the response body
-        del data['refresh']
         
         return response
 
@@ -45,10 +44,15 @@ class CreateUserView(generics.CreateAPIView):
 class NoteCreateView(generics.CreateAPIView): 
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class NotesListView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Note.objects.filter(user=self.request.user)
@@ -56,5 +60,6 @@ class NotesListView(generics.ListAPIView):
 class UpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
 
 
