@@ -16,12 +16,11 @@ export default function UpdateNote({open,onClose,noteId}) {
     fetch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`)
       .then(response => response.json())
       .then(data => {
-        // Only extract the name and description from the response
         const { title, content } = data;
         setNoteData({ title, content });
       })
-      .catch(error => console.error('Error fetching item:', error));
-  }, [noteId]);
+      .catch(error => console.error('Error fetching item:', error)); 
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -46,7 +45,7 @@ export default function UpdateNote({open,onClose,noteId}) {
         <div>
           <div className="flex items-center justify-between mb-1">
             <span className="text-[12px]">TITLE</span>
-            <button onClick={onClose}>
+            <button onClick={onClose} className="py-1 px-2 hover:bg-slate-50 hover:transition-all duration-200 rounded">
               <svg className="w-[12px] text-[#8a8f8b]" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </button>
           </div>
