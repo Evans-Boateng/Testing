@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
 import Note from "../note";
 import axios from "axios";
+import { useAuth } from "../AuthProvider";
+
+
 
 export default function All() {
     const [notes, setNotes] = useState([])
+    const {token} = useAuth();
     useEffect(() => {
         const fetchNotes = async () =>{
             try{
-                const response = await axios.get("http://127.0.0.1:8000/api/notes/")
+                const response = await axios.get("http://127.0.0.1:8000/api/notes/",{
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                    
+                })
                 setNotes(response.data)
                 
             }
             catch (error) {
-                console.error("error in fetching notes", error)
+                console.error("error in fetching notes", error.response?.data || error.message)
             }
         }
         fetchNotes();
@@ -26,6 +35,7 @@ export default function All() {
                         id={note.id}/>
                 })
             }
+
         </>
     )
 }

@@ -38,8 +38,12 @@ export default function HomePage() {
               
             </div>
           </nav>
+          <div className="flex justify-center items-center w-full h-full pt-10">
+            <img className="w-[200px]" src="src\assets\add-note-illustration.svg"/>
+          </div>
           <div className="grid grid-cols-3 gap-5">
             <Outlet />
+            
           </div>
         </div>
         </div>

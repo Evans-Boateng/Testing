@@ -8,11 +8,15 @@ import All from './pages/All'
 import Personal from './pages/Personal'
 import Home from './pages/Home'
 import Business from './pages/Business'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import ProtectedRoute from './ProtectedRoute'
+import AuthProvider from './AuthProvider'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <ProtectedRoute><HomePage /></ProtectedRoute>,
     children: [
       {
         path: "/",
@@ -32,10 +36,18 @@ const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/signup",
+    element: <Register />
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider><RouterProvider router={router} /></AuthProvider>
   </StrictMode>,
 )

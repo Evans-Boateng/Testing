@@ -6,8 +6,6 @@ export default function Note(props){
   const [open, setOpen] = useState(false);
   const [openDelModal, setOpenDelModal] = useState(false);
   
-  
-
   const changeBackground = () =>{
     let color = "";
     if (props.category === "Business"){
