@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
+import { useAuth } from "./AuthProvider";
 
 
 export default function UpdateNote({open,onClose,noteId}) {
-  // const [title, setTitle] = useState("");
-  // const [content, setContent] = useState("");
+  const {token} = useAuth();
 
   const [noteData, setNoteData] = useState({
     title: '',
@@ -13,14 +13,18 @@ export default function UpdateNote({open,onClose,noteId}) {
   });
   
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`)
+    fetch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         const { title, content } = data;
         setNoteData({ title, content });
       })
       .catch(error => console.error('Error fetching item:', error)); 
-  }, []);
+  }, [noteId]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,7 +33,11 @@ export default function UpdateNote({open,onClose,noteId}) {
   
   const handleSubmit = async () => {
     try{
-      await axios.patch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`, noteData)
+      await axios.patch(`http://127.0.0.1:8000/api/updatedelete/${noteId}/`, noteData, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       toast.success("Note updated successfully!")
       onClose();
     }
