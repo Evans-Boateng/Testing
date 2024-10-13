@@ -6,8 +6,9 @@ import axios from "axios";
 
 function ProtectedRoute({children}) {
     const [isAuthorized, setIsAuthorized] = useState(null);
-    const { setToken, refreshtoken, token } = useAuth();
+    const { setToken,  token } = useAuth();
     console.log(token)
+    const refresh_token = localStorage.getItem("refreshToken");
 
     useEffect(() => {
        const authorize = async() => {
@@ -26,7 +27,7 @@ function ProtectedRoute({children}) {
 
     const refreshToken = async () => {
         try{
-            const res = await axios.post("http://127.0.0.1:8000/api/token/refresh/", {}, {
+            const res = await axios.post("http://127.0.0.1:8000/api/token/refresh/", { "refresh" : refresh_token }, {
                 withCredentials: true
             });
             if (res.status === 200){

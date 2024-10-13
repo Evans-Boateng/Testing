@@ -15,6 +15,7 @@ export default function Login(){
       const response = await axios.post("http://127.0.0.1:8000/api/token/", { email, password });
       setToken(response.data.access)
       setRefreshToken(response.data.refresh)
+      localStorage.setItem("refreshToken", response.data.refresh)
       console.log(response.data)
       console.log(token)
       
