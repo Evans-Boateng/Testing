@@ -2,34 +2,27 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { useAuth } from "./AuthProvider";
+import { useNotes } from "./NotesContext";
 export default function NoteModal({open, onClose, children}){
   const [category, setCategory] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const {token} = useAuth();
-  
+  const {handleCreateNote} = useNotes();
 
+  const handleSubmit = async () => {
 
-  const handleSubmit = async () =>{
-    try{
-      await axios.post('http://127.0.0.1:8000/api/notecreate/',{title, content, category}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      setCategory('')
-      setContent('')
-      setTitle('')
-      onClose()
-      toast.success("Note created successfully!")
-    }catch(error){
-      console.error('error in sending request', error.response?.data || error.message)
-    }
+    await handleCreateNote(title, content, category);
+    setCategory('')
+    setContent('')
+    setTitle('')
+    onClose()
+    toast.success("Note created successfully!")
   }
 
   return (
     <div onClick={onClose} className={`fixed z-50 inset-0 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "hidden"}`}>
-      <div onClick={(event) => event.stopPropagation()} className={`w-[35%]  p-[15px] rounded-[5px] bg-white shadow transition all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"} `}>
+      <div onClick={(event) => event.stopPropagation()} className={`sm:w-[35%] w-[80%] p-[15px] rounded-[5px] bg-white shadow transition all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"} `}>
         <div>
           <div className="flex items-center justify-between mb-1">
             <span className="text-[12px]">TITLE</span>
