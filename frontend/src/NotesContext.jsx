@@ -26,6 +26,20 @@ export const NotesProvider = ({children}) => {
       console.error('Error in fetching notes', error)
     }
   }
+  const handleCreateNote = async (title, content, category) => {
+    try{
+      const response = await axios.post('http://127.0.0.1:8000/api/notecreate/',{title, content, category}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      console.log(response)
+      setNotes((prevNotes) => [...prevNotes, response.data])
+    } catch(error){
+      console.error('error in creating note', error)
+    }
+  }
+
   const handleUpdateNote = async (updatedNote) => {
     try{
       const response = await axios.patch(`http://127.0.0.1:8000/api/updatedelete/${updatedNote.id}/`, updatedNote, {
@@ -56,7 +70,7 @@ export const NotesProvider = ({children}) => {
         }
       });
   
-      if (response.status === 200) {
+      if (response.status === 204 || response.status === 200) {
         setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
       }
     } catch (error) {
@@ -67,7 +81,7 @@ export const NotesProvider = ({children}) => {
 
   return (
     <NotesContext.Provider 
-      value={{notes, fetchNotes, handleUpdateNote, handleDeleteNote}}
+      value={{notes, fetchNotes, handleUpdateNote, handleDeleteNote, handleCreateNote}}
     >
       {children}
     </NotesContext.Provider>
