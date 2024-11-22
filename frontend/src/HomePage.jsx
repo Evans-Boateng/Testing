@@ -1,14 +1,17 @@
 import { NavLink, Outlet } from "react-router-dom"
 import Note from "./note"
 import Header from "./Header"
-import { Toaster, toast } from 'sonner'
+import { Toaster, toast } from 'sonner';
+import Initial from "./Initial";
+import { useNotes } from "./NotesContext";
 
 
 export default function HomePage() {
+  const {notes} = useNotes();
   return (
     <>
       <Header />
-      <div className="w-[100%] h-[100%] flex justify-center">
+      <div className="w-[100%] relative h-[100%] flex justify-center">
         <Toaster richColors/>
         <div className=" w-[88%] mt-5 mb-5">
         <div className="mb-3"><h1 className="font-medium text-lg">Your notes</h1></div>
@@ -38,12 +41,12 @@ export default function HomePage() {
               
             </div>
           </nav>
-          <div className="flex justify-center items-center w-full h-full pt-10">
-            <img className="w-[200px]" src="src\assets\add-note-illustration.svg"/>
-          </div>
-          <div className="grid grid-cols-3 gap-5">
-            <Outlet />
-            
+          <Outlet />
+          
+          <div className="fixed right-10 bottom-7 sm:hidden ">
+            <button className="bg-blue-600 text-white p-4 rounded-[50%]">
+              <svg className="w-[20px] h-[18px] " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
+            </button>
           </div>
         </div>
         </div>
